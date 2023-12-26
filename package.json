@@ -3,25 +3,34 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "./build/cjs/index.js",
+  "main": "./lib/cjs/index.js",
   "exports": {
-    "require": "./build/cjs/index.js",
-    "import": "./build/esm/index.js"
+    "./react": {
+      "import": "./lib/esm/react/index.js",
+      "default": "./lib/esm/react/index.js",
+      "require": "./lib/cjs/react/index.js"
+    },
+    ".": {
+      "default": "./lib/esm/index.js",
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.js"
+    }
   },
   "files": [
-    "build",
+    "lib",
     "src"
   ],
   "scripts": {
     "test": "tsc --noEmit && eslint --max-warnings=0",
-    "build": "del-cli build && tsc --module commonjs --outDir ./build/cjs && tsc --module es2022 --outDir ./build/esm",
+    "build": "del-cli lib && tsc --module commonjs --outDir ./lib/cjs && tsc --module es2022 --outDir ./lib/esm",
     "prettier ": "prettier --ignore-unknown --write src --config-precedence prefer-file",
-    "prepare": "npm run test && npm run build && prettier --write ./build"
+    "prepare": "npm run test && npm run build && prettier --write ./lib"
   },
   "keywords": [],
   "author": "Ahmed ALAbsi",
   "license": "ISC",
   "devDependencies": {
+    "@types/react": "^18.2.45",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
     "del-cli": "^5.1.0",
@@ -29,5 +38,10 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.1",
     "prettier": "^3.1.1"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
   }
 }

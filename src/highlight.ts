@@ -46,10 +46,7 @@ export function highlight<T extends string | object>(result: T & ReturnSearchInf
   return highlighted;
 }
 
-export function highlightCallback<T>(
-  result: ReturnSearchInfo<string | object>,
-  cb: (highlighted: string, i: number) => T
-): string {
+export function highlightCallback<T>(result: ReturnSearchInfo<string | object>, cb: (highlighted: string, i: number) => T) {
   const target = result._searchInfo.target;
   const targetLen = target.length;
   const results = [];
@@ -89,5 +86,5 @@ export function highlightCallback<T>(
     highlighted += char;
   }
 
-  return results.filter(Boolean).join('');
+  return results;
 }
