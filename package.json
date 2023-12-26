@@ -4,13 +4,13 @@
   "description": "",
   "type": "module",
   "main": "./lib/cjs/index.js",
+  "react-native": "./src/index-react-native",
   "exports": {
     "./react": {
       "import": "./lib/esm/react/index.js",
       "require": "./lib/cjs/react/index.js"
     },
     ".": {
-      "react-native": "./lib/cjs/index-react-native.js",
       "import": "./lib/esm/index.js",
       "require": "./lib/cjs/index.js"
     }

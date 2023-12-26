@@ -1,8 +1,17 @@
 import React from 'react';
 import type { ReturnSearchInfo } from '../types';
 
-export function HighlightReact(
-  result: ReturnSearchInfo<string | object>,
+/**
+ * - For `HTML` import `highlight` from `'fuzzy-search'`
+ * - For `React` import `HighlightReact` from `'fuzzy-search/react'`
+ * - For `React-Native` import `HighlightReact` from `'fuzzy-search'`
+ * @param result - Search result object
+ * @param HighlightedTextCP - Highlighted text component
+ * @param RegularTextCP - Regular text component
+ * @returns - Returns an array of JSX elements
+ */
+export function HighlightReact<T extends string | object>(
+  result: T & ReturnSearchInfo<T>,
   HighlightedTextCP: React.FC<{ text: string }>,
   RegularTextCP: React.FC<{ text: string }> = ({ text }) => <>{text}</>
 ): React.JSX.Element[] {
@@ -23,7 +32,7 @@ export function HighlightReact(
       ++indexesI;
       if (!opened) {
         opened = true;
-        results.push(<HighlightedTextCP key={highlighted + matchI} text={highlighted} />);
+        results.push(<RegularTextCP key={highlighted + matchI} text={highlighted} />);
         highlighted = '';
       }
 
