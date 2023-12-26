@@ -1,4 +1,4 @@
-import { ReturnSearchInfo } from './types';
+import type { ReturnSearchInfo } from './types';
 
 export { go, single } from './fuzzy';
 export { highlight } from './highlight';
@@ -18,10 +18,6 @@ export * from './types';
  */
 export declare function HighlightReact<T extends string | object>(
   result: T & ReturnSearchInfo<T>,
-  HighlightedTextCP: React.FC<{
-    text: string;
-  }>,
-  RegularTextCP?: React.FC<{
-    text: string;
-  }>
+  HighlightedTextCP: React.FC<{ text: string }>,
+  RegularTextCP?: React.FC<{ text: string }>
 ): React.JSX.Element[];
