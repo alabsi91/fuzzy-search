@@ -4,7 +4,6 @@
   "description": "",
   "type": "module",
   "main": "./build/cjs/index.js",
-  "types": ".build/typescript/index.d.ts",
   "exports": {
     "require": "./build/cjs/index.js",
     "import": "./build/esm/index.js"
@@ -15,7 +14,7 @@
   ],
   "scripts": {
     "test": "tsc --noEmit && eslint --max-warnings=0",
-    "build": "del-cli build && tsc --module commonjs --outDir ./build/cjs && tsc --module es2022 --outDir ./build/esm && tsc --declaration --declarationMap --emitDeclarationOnly --declarationDir ./build/typescript",
+    "build": "del-cli build && tsc --module commonjs --outDir ./build/cjs && tsc --module es2022 --outDir ./build/esm",
     "prettier ": "prettier --ignore-unknown --write src --config-precedence prefer-file",
     "prepare": "npm run test && npm run build && prettier --write ./build"
   },
