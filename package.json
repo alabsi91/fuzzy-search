@@ -1,0 +1,34 @@
+{
+  "name": "fuzzy-search",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "./build/cjs/index.js",
+  "types": ".build/typescript/index.d.ts",
+  "exports": {
+    "require": "./build/cjs/index.js",
+    "import": "./build/esm/index.js"
+  },
+  "files": [
+    "build",
+    "src"
+  ],
+  "scripts": {
+    "test": "tsc --noEmit && eslint --max-warnings=0",
+    "build": "del-cli build && tsc --module commonjs --outDir ./build/cjs && tsc --module es2022 --outDir ./build/esm && tsc --declaration --declarationMap --emitDeclarationOnly --declarationDir ./build/typescript",
+    "prettier ": "prettier --ignore-unknown --write src --config-precedence prefer-file",
+    "prepare": "npm run test && npm run build && prettier --write ./build"
+  },
+  "keywords": [],
+  "author": "Ahmed ALAbsi",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "del-cli": "^5.1.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.1",
+    "prettier": "^3.1.1"
+  }
+}
