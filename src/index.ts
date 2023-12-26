@@ -16,8 +16,8 @@ export * from './types';
  * @param RegularTextCP - Regular text component
  * @returns - Returns an array of JSX elements
  */
-export declare function HighlightReact(
-  result: ReturnSearchInfo<string | object>,
+export declare function HighlightReact<T extends string | object>(
+  result: T & ReturnSearchInfo<T>,
   HighlightedTextCP: React.FC<{
     text: string;
   }>,
