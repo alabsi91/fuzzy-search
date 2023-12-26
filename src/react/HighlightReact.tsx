@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReturnSearchInfo } from '../types';
+import type { ReturnSearchInfo } from '../types';
 
 export function HighlightReact(
   result: ReturnSearchInfo<string | object>,
