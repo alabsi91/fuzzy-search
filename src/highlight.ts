@@ -1,4 +1,4 @@
-import { ReturnSearchInfo } from './types';
+import { ObjectWithSearchInfo } from './types';
 
 type Options = {
   openTag?: `<${string}>`;
@@ -6,7 +6,7 @@ type Options = {
   callback?: (highlighted: string, i: number) => unknown;
 };
 
-export function highlight<T extends string | object>(result: T & ReturnSearchInfo<T>, options?: Options) {
+export function highlight<T extends string | object>(result: T & ObjectWithSearchInfo<T>, options?: Options) {
   if (options && options.callback) return highlightCallback(result, options.callback);
   const openTag = (options && options.openTag) ?? '<b>';
   const closeTag = (options && options.closeTag) ?? '</b>';
@@ -46,7 +46,7 @@ export function highlight<T extends string | object>(result: T & ReturnSearchInf
   return highlighted;
 }
 
-export function highlightCallback<T>(result: ReturnSearchInfo<string | object>, cb: (highlighted: string, i: number) => T) {
+export function highlightCallback<T>(result: ObjectWithSearchInfo<string | object>, cb: (highlighted: string, i: number) => T) {
   const target = result._searchInfo.target;
   const targetLen = target.length;
   const results = [];

@@ -1,17 +1,16 @@
 import React from 'react';
-import type { ReturnSearchInfo } from '../types';
+import type { ObjectWithSearchInfo } from '../types';
 
 /**
  * - For `HTML` import `highlight` from `'fuzzy-search'`
- * - For `React` import `HighlightReact` from `'fuzzy-search/react'`
- * - For `React-Native` import `HighlightReact` from `'fuzzy-search'`
+ * - For `React` or `React-Native` import `HighlightReact` from `'fuzzy-search/react'`
  * @param result - Search result object
  * @param HighlightedTextCP - Highlighted text component
  * @param RegularTextCP - Regular text component
  * @returns - Returns an array of JSX elements
  */
 export function Highlight<T extends string | object>(
-  result: T & ReturnSearchInfo<T>,
+  result: T & ObjectWithSearchInfo<T>,
   HighlightedTextCP: React.FC<{ text: string }>,
   RegularTextCP: React.FC<{ text: string }> = ({ text }) => <>{text}</>
 ): React.JSX.Element[] {
