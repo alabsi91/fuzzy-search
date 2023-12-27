@@ -35,7 +35,7 @@ export function search<T extends string | object>(search: string, targets: T[], 
   const preparedSearch = getPreparedSearch(search);
   const searchBitflags = preparedSearch.bitflags;
 
-  const threshold = (options && options.threshold) || INT_MIN;
+  const threshold = (options && options.threshold) || -10000;
   const limit = (options && options.limit) || INT_MAX;
 
   const targetsLen = targets.length;
