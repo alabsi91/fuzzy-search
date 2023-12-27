@@ -10,7 +10,7 @@ import type { ReturnSearchInfo } from '../types';
  * @param RegularTextCP - Regular text component
  * @returns - Returns an array of JSX elements
  */
-export function HighlightReact<T extends string | object>(
+export function Highlight<T extends string | object>(
   result: T & ReturnSearchInfo<T>,
   HighlightedTextCP: React.FC<{ text: string }>,
   RegularTextCP: React.FC<{ text: string }> = ({ text }) => <>{text}</>

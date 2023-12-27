@@ -26,9 +26,9 @@ const queue = createFastPriorityQueue();
  * @param options - Additional options for the search.
  * @returns - Result of the fuzzy search algorithm.
  */
-export function go<T extends string>(search: string, targets: T[], options?: OptionsStringArray<T>): ReturnStringArray<T>[];
-export function go<T extends object>(search: string, targets: T[], options?: OptionsWithKeys<T>): ReturnObjectArray<T>[];
-export function go<T extends string | object>(search: string, targets: T[], options?: Options<T>): ReturnSearchInfo<T>[] {
+export function search<T extends string>(search: string, targets: T[], options?: OptionsStringArray<T>): ReturnStringArray<T>[];
+export function search<T extends object>(search: string, targets: T[], options?: OptionsWithKeys<T>): ReturnObjectArray<T>[];
+export function search<T extends string | object>(search: string, targets: T[], options?: Options<T>): ReturnSearchInfo<T>[] {
   const transformationFn = (options && options.transformationFn) || ((str: string) => str);
   search = transformationFn(search);
 

@@ -1,0 +1,5 @@
+{
+  "main": "../lib/commonjs/react/index.js",
+  "module": "../lib/module/react/index.js",
+  "react-native": "../src/react/index"
+}
