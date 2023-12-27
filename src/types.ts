@@ -14,6 +14,7 @@ export type PreparedTargetInfo<T = string> = {
   targetLowerCodes: number[];
   nextBeginningIndexes: number[] | null;
   bitflags: number;
+  /** exact match returns a score of 0. lower is worse */
   score: number;
   key?: T;
   indexes: number[] & { len?: number };
@@ -32,9 +33,24 @@ export type ObjectKeyPaths<T> = T extends Date | Array<unknown>
     : never;
 
 export type Options<T extends string | object> = {
+  /** - Custom string transformation function to apply to input search and targets. */
   transformationFn?: (str: string) => string;
+  /** - Custom score function, only used when `options.keys` is provided. */
   scoreFn?: (a: (PreparedTargetInfo | null)[]) => number;
+  /**
+   * - Minimum score to return results.
+   * - Exact match returns a score of 0. lower is worse.
+   * - Use `-10000` to eliminate results with bad scores.
+   * - Use `-Infinity` to return results with any score.
+   * 
+   * **Default:** `-10000`
+   */
   threshold?: number;
+  /** 
+   * - Limit the number of results .
+   * 
+   * **Default:** `Infinity`
+   */
   limit?: number;
   key?: T extends string ? never : ObjectKeyPaths<T>;
   keys?: T extends string ? never : ObjectKeyPaths<T>[];
