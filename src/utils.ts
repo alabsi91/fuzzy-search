@@ -265,6 +265,5 @@ export function getPreparedTarget(target: string): PreparedTargetInfo {
  */
 export function transformationFn(str: string): string {
   const re = new RegExp('[' + Array.from(charactersMap.keys()).join('') + ']', 'g');
-  const normalized = str.replace(re, match => charactersMap.get(match) || match);
-  return normalized.trim().toLocaleLowerCase();
+  return str.replace(re, match => charactersMap.get(match) || match);
 }

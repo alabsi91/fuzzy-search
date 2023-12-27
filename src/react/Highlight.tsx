@@ -17,7 +17,7 @@ export function Highlight<T extends string | object>(
 ): React.JSX.Element[] {
   const target = result._searchInfo.target;
   const targetLen = target.length;
-  const results = [];
+  const results: React.JSX.Element[] = [];
 
   let indexes = result._searchInfo.indexes;
   indexes = indexes.slice(0, indexes.len).sort((a, b) => a - b);
