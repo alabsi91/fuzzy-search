@@ -1,6 +1,6 @@
 export { search, single } from './fuzzy';
 export { highlight } from './highlight';
-export { charactersMap } from './store';
+export { charactersMap, cleanup } from './store';
 export { transformationFn } from './utils';
 
 export * from './types';
