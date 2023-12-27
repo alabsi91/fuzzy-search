@@ -3,13 +3,14 @@ import { getPreparedSearch, getPreparedTarget, getValue } from './utils';
 
 import type {
   ObjectKeyPaths,
+  ObjectWithSearchInfo,
   Options,
   OptionsStringArray,
   OptionsWithKeys,
   PreparedTargetInfo,
   ReturnObjectArray,
-  ObjectWithSearchInfo,
-  ReturnStringArray
+  ReturnSearchInfo,
+  ReturnStringArray,
 } from './types';
 
 const INT_MAX = Infinity;
@@ -27,7 +28,7 @@ const queue = createFastPriorityQueue();
  */
 export function search<T extends string>(search: string, targets: T[], options?: OptionsStringArray<T>): ReturnStringArray<T>[];
 export function search<T extends object>(search: string, targets: T[], options?: OptionsWithKeys<T>): ReturnObjectArray<T>[];
-export function search<T extends string | object>(search: string, targets: T[], options?: Options<T>): ObjectWithSearchInfo<T>[] {
+export function search<T extends string | object>(search: string, targets: T[], options?: Options<T>): ReturnSearchInfo<T>[] {
   const transformationFn = (options && options.transformationFn) || ((str: string) => str);
   search = transformationFn(search);
 
@@ -61,7 +62,7 @@ export function search<T extends string | object>(search: string, targets: T[], 
 
       result.target = target; // original target (not transformationFn-ed)
 
-      const objectWithSearchInfo = obj as ReturnObjectArray<T>;
+      const objectWithSearchInfo = obj as ObjectWithSearchInfo;
       result.key = key;
       objectWithSearchInfo._searchInfo = result;
 
@@ -69,7 +70,7 @@ export function search<T extends string | object>(search: string, targets: T[], 
         queue.add(objectWithSearchInfo);
         ++resultsLen;
       } else {
-        const highestPriority = queue.peek<ReturnObjectArray<T>>();
+        const highestPriority = queue.peek<ObjectWithSearchInfo>();
         if (highestPriority && result.score > highestPriority._searchInfo.score) queue.replaceTop(objectWithSearchInfo);
       }
     }
@@ -88,7 +89,7 @@ export function search<T extends string | object>(search: string, targets: T[], 
       const objResults = new Array(keysLen) as (PreparedTargetInfo | null)[];
 
       for (let keyI = 0; keyI < keysLen; ++keyI) {
-        const key = keys[keyI] as ObjectKeyPaths<T>;
+        const key = keys[keyI];
         const target = getValue(obj, key);
 
         if (!target) {
@@ -115,14 +116,14 @@ export function search<T extends string | object>(search: string, targets: T[], 
 
       const _searchInfo = objResults.filter(r => r !== null && r.score === score)[0]!;
 
-      const objectWithSearchInfo = obj as ReturnObjectArray<T>;
+      const objectWithSearchInfo = obj as ObjectWithSearchInfo;
       objectWithSearchInfo._searchInfo = _searchInfo;
 
       if (resultsLen < limit) {
         queue.add(objectWithSearchInfo);
         ++resultsLen;
       } else {
-        const highestPriority = queue.peek<ReturnObjectArray<T>>();
+        const highestPriority = queue.peek<ObjectWithSearchInfo>();
         if (highestPriority && score > highestPriority._searchInfo.score) {
           queue.replaceTop(objectWithSearchInfo);
         }
@@ -159,9 +160,9 @@ export function search<T extends string | object>(search: string, targets: T[], 
   }
 
   if (resultsLen === 0) return [];
-  const results = new Array(resultsLen) as ObjectWithSearchInfo<T>[];
+  const results = new Array(resultsLen) as ReturnSearchInfo<T>[];
   for (let i = resultsLen - 1; i >= 0; --i) {
-    const result = queue.poll<ObjectWithSearchInfo<T>>();
+    const result = queue.poll<ReturnSearchInfo<T>>();
     if (result) results[i] = result;
   }
 

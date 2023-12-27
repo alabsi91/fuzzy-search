@@ -16,7 +16,7 @@ export type PreparedTargetInfo<T = string> = {
   bitflags: number;
   /** exact match returns a score of 0. lower is worse */
   score: number;
-  key?: ObjectKeyPaths<T>;
+  key?: T;
   indexes: number[] & { len?: number };
 };
 
@@ -76,4 +76,10 @@ export type OptionsWithKeys<T extends object> = OptionsWithSingleKey<T> | Option
 export type ReturnStringArray<T> = { string: T; _searchInfo: PreparedTargetInfo<never> };
 export type ReturnObjectArray<T> = T & { _searchInfo: PreparedTargetInfo<ObjectKeyPaths<T>> };
 
-export type ObjectWithSearchInfo<T extends string | object> = T extends string ? ReturnStringArray<T> : ReturnObjectArray<T>;
+export type ReturnSearchInfo<T> =
+  // the target is an array of strings with no kye nor keys option
+  | ReturnStringArray<T>
+  // the target is an array of objects with key/s option
+  | ReturnObjectArray<T>;
+
+export type ObjectWithSearchInfo = object & { _searchInfo: PreparedTargetInfo };
