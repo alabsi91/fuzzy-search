@@ -3,8 +3,7 @@ import type { ReturnSearchInfo } from '../types';
 
 /**
  * - For `HTML` import `highlight` from `'fuzzy-search'`
- * - For `React` import `HighlightReact` from `'fuzzy-search/react'`
- * - For `React-Native` import `HighlightReact` from `'fuzzy-search'`
+ * - For `React` and `React-Native` import `Highlight` from `'fuzzy-search/react'`
  * @param result - Search result object
  * @param HighlightedTextCP - Highlighted text component
  * @param RegularTextCP - Regular text component
