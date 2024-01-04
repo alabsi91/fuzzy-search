@@ -27,7 +27,8 @@ const data = [
   },
 ];
 
-// Note: this will mutate each object and inject a new property `_searchInfo` which will be used for highlight text.
+// Note: this will mutate each object and inject a new property
+// `_searchInfo` which will be used for highlight text.
 
 // example for searching using a single key
 const results = search(searchInput, data, { key: 'name' });
@@ -41,14 +42,18 @@ const results = search(searchInput, data, { key: 'info.longName' });
 // example for searching through an array of strings
 const data = ['item1', 'item2'];
 // this will return: [{ string: 'item1', _searchInfo: [object] }]
-const results = search(searchInput, data); 
+const results = search(searchInput, data);
 
 // highlight results HTML
 const item = results[0];
-const highlightedName = highlight(item); // item <b>name</b>
+const highlightedName = highlight(item); // returns: "item <b>name</b>"
 
 // or you can pass a custom HTML tag
 const highlightedName = highlight(item, '<span>', '</span>');
+
+// check which key is being highlighted when searching using multiple keys
+const highlightedName = item._searchInfo.key === 'name' ? highlight(item) : item.name;
+const highlightedDescription = item._searchInfo.key === 'description' ? highlight(item) : item.description;
 
 // highlight results for react
 function HighlightedTextComponent({ text }: { text: string }) {
