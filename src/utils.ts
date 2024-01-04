@@ -273,6 +273,6 @@ export function transformationFn(str: string): string {
  * 
  * This will return nothing as the object will be mutated.
  */
-export function cleanupSearchInfo<T extends object>(obj: T) {
+export function cleanupSearchInfoInObject<T extends object>(obj: T) {
   if (obj && '_searchInfo' in obj) delete obj._searchInfo;
 }
