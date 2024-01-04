@@ -1,5 +1,5 @@
 import { algorithm, createFastPriorityQueue } from './algorithms';
-import { getPreparedSearch, getPreparedTarget, getValue } from './utils';
+import { cleanupSearchInfo, getPreparedSearch, getPreparedTarget, getValue } from './utils';
 
 import type {
   ObjectKeyPaths,
@@ -49,6 +49,8 @@ export function search<T extends string | object>(search: string, targets: T[], 
       const obj = targets[i];
       if (typeof obj !== 'object') continue;
 
+      cleanupSearchInfo(obj); // remove _searchInfo if it exists from previous search
+
       const target = getValue(obj, key);
       if (!target) continue;
 
@@ -85,6 +87,8 @@ export function search<T extends string | object>(search: string, targets: T[], 
     for (let i = 0; i < targetsLen; ++i) {
       const obj = targets[i];
       if (typeof obj !== 'object') continue;
+
+      cleanupSearchInfo(obj); // remove _searchInfo if it exists from previous search
 
       const objResults = new Array(keysLen) as (PreparedTargetInfo | null)[];
 

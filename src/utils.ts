@@ -269,11 +269,10 @@ export function transformationFn(str: string): string {
 }
 
 /**
- * Removes the _searchInfo property from an object.
- * After using the object in highlight, you should call cleanupSearchInfo(object) to clean up.
+ * Removes the _searchInfo property from an object if it exists.
+ * 
+ * This will return nothing as the object will be mutated.
  */
-export function cleanupSearchInfo<T extends object>(obj: T & ReturnObjectArray<T>): Omit<T, '_searchInfo'> {
-  // @ts-expect-error _searchInfo should be optional
-  delete obj._searchInfo;
-  return obj as Omit<T, '_searchInfo'>;
+export function cleanupSearchInfo<T extends object>(obj: T) {
+  if (obj && '_searchInfo' in obj) delete obj._searchInfo;
 }
