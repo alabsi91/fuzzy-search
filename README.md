@@ -41,7 +41,7 @@ const results = search(searchInput, data, { key: 'name' });
 // example for searching using a multiple keys
 const results = search(searchInput, data, { keys: ['name', 'description'] });
 
-// example for searching using a nested keys
+// example for searching using a nested key
 const results = search(searchInput, data, { key: 'info.longName' });
 
 // example for searching through an array of strings
