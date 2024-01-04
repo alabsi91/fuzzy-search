@@ -26,7 +26,11 @@ export type ObjectKeyPaths<T> = T extends Date | Array<unknown>
   ? ''
   : (
         T extends object
-          ? { [K in Exclude<keyof T, symbol>]: `${K}${DotPrefix<ObjectKeyPaths<T[K]>>}` }[Exclude<keyof T, symbol>]
+          ? {
+              [K in Extract<keyof T, string>]: T[K] extends (string | undefined) | Record<string, unknown>
+                ? `${K}${DotPrefix<ObjectKeyPaths<NonNullable<T[K]>>>}`
+                : never;
+            }[Extract<keyof T, string>]
           : ''
       ) extends infer D
     ? Extract<D, string>
@@ -42,13 +46,13 @@ export type Options<T extends string | object> = {
    * - Exact match returns a score of 0. lower is worse.
    * - Use `-10000` to eliminate results with bad scores.
    * - Use `-Infinity` to return results with any score.
-   * 
+   *
    * **Default:** `-10000`
    */
   threshold?: number;
-  /** 
+  /**
    * - Limit the number of results .
-   * 
+   *
    * **Default:** `Infinity`
    */
   limit?: number;
