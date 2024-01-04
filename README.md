@@ -30,7 +30,7 @@ const data = [
 /**
  * Note: this will mutate each object and inject a new property
  * `_searchInfo` which will be used for highlight text.
- * 
+ *
  * to remove the added property you can pass your results to `cleanupSearchInfo`
  * which will mutate the results in place and remove `_searchInfo`
  */
@@ -54,7 +54,7 @@ const item = results[0];
 const highlightedName = highlight(item); // returns: "item <b>name</b>"
 
 // or you can pass a custom HTML tag
-const highlightedName = highlight(item, '<span>', '</span>');
+const highlightedName = highlight(item, { openTag: '<span>', closeTag: '</span>' });
 
 // check which key is being highlighted when searching using multiple keys
 const highlightedName = item._searchInfo.key === 'name' ? highlight(item) : item.name;
