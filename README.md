@@ -27,8 +27,13 @@ const data = [
   },
 ];
 
-// Note: this will mutate each object and inject a new property
-// `_searchInfo` which will be used for highlight text.
+/**
+ * Note: this will mutate each object and inject a new property
+ * `_searchInfo` which will be used for highlight text.
+ * 
+ * to remove the added property you can pass your results to `cleanupSearchInfo`
+ * which will mutate the results in place and remove `_searchInfo`
+ */
 
 // example for searching using a single key
 const results = search(searchInput, data, { key: 'name' });

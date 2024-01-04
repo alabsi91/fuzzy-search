@@ -269,10 +269,23 @@ export function transformationFn(str: string): string {
 }
 
 /**
- * Removes the _searchInfo property from an object if it exists.
- * 
+ * Removes the `_searchInfo` property from an object if it exists.
+ *
  * This will return nothing as the object will be mutated.
  */
 export function cleanupSearchInfoInObject<T extends object>(obj: T) {
   if (obj && '_searchInfo' in obj) delete obj._searchInfo;
+}
+
+/**
+ * Removes the `_searchInfo` property from objects in an array if it exists.
+ *
+ * This will return nothing as the objects will be mutated.
+ */
+export function cleanupSearchInfo<T extends object>(array: T[]) {
+  for (let i = 0; i < array.length; i++) {
+    const obj = array[i];
+    if (!obj || !('_searchInfo' in obj)) continue;
+    delete obj._searchInfo;
+  }
 }
