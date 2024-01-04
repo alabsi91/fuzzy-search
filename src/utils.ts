@@ -1,5 +1,5 @@
 import { charactersMap, preparedCache, preparedSearchCache } from './store';
-import type { PreparedSearch, PreparedTargetInfo, SpaceSearches } from './types';
+import type { PreparedSearch, PreparedTargetInfo, ReturnObjectArray, SpaceSearches } from './types';
 
 /**
  * Gets the value from an object using a property string or an array of keys.
@@ -266,4 +266,14 @@ export function getPreparedTarget(target: string): PreparedTargetInfo {
 export function transformationFn(str: string): string {
   const re = new RegExp('[' + Array.from(charactersMap.keys()).join('') + ']', 'g');
   return str.replace(re, match => charactersMap.get(match) || match);
+}
+
+/**
+ * Removes the _searchInfo property from an object.
+ * After using the object in highlight, you should call cleanupSearchInfo(object) to clean up.
+ */
+export function cleanupSearchInfo<T extends object>(obj: T & ReturnObjectArray<T>): Omit<T, '_searchInfo'> {
+  // @ts-expect-error _searchInfo should be optional
+  delete obj._searchInfo;
+  return obj as Omit<T, '_searchInfo'>;
 }

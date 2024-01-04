@@ -5,7 +5,7 @@ export const preparedCache = new Map<string, PreparedTargetInfo>();
 export let matchesSimple: number[] = [];
 export let matchesStrict: number[] = [];
 
-export function cleanup() {
+export function cleanupSearchCache() {
   preparedCache.clear();
   preparedSearchCache.clear();
   matchesSimple = [];
